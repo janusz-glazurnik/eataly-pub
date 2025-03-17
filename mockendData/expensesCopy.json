@@ -1,0 +1,60 @@
+{
+  "expenses": [
+    {
+      "id": "exp1",
+      "description": "Dinner at Italian restaurant",
+      "timestamp": "2021-03-10T19:00:00.000Z",
+      "currency": "EUR",
+      "amount": 120,
+      "evenSplit": true,
+      "participants": ["p1", "p2", "p3", "p5"],
+      "payer": "p1"
+    },
+    {
+      "id": "exp2",
+      "description": "Lunch at cafe",
+      "timestamp": "2021-03-11T12:30:00.000Z",
+      "currency": "EUR",
+      "amount": 90,
+      "evenSplit": false,
+      "proportions": {
+        "p1": 0.5,
+        "p2": 0.3,
+        "p3": 0.2,
+        "p4": 0,
+        "p5": 0
+      },
+      "payer": "p2"
+    },
+    {
+      "id": "exp3",
+      "description": "Tour bus ticket",
+      "timestamp": "2021-03-11T14:00:00.000Z",
+      "currency": "EUR",
+      "amount": 60,
+      "evenSplit": true,
+      "participants": ["p1", "p2", "p4"],
+      "payer": "p3"
+    },
+    {
+      "id": "exp4",
+      "description": "Tour bus ticket 2",
+      "timestamp": "2021-03-11T14:00:00.000Z",
+      "currency": "EUR",
+      "amount": 75,
+      "evenSplit": true,
+      "participants": ["p1", "p2", "p3", "p4", "p5"],
+      "payer": "p5"
+    },
+    {
+      "id": "exp5",
+      "description": "Tour bus ticket 3",
+      "timestamp": "2021-03-11T14:00:00.000Z",
+      "currency": "EUR",
+      "amount": 112,
+      "evenSplit": true,
+      "participants": ["p1", "p2", "p3", "p4", "p5"],
+      "payer": "p4"
+    }
+  ]
+}

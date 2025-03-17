@@ -1,0 +1,16 @@
+@use '/src/styles/_variables' as *;
+
+body {
+  background-color: $body-background-color;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border-radius: 8px;
+  margin: 20px auto 1000px;
+  font-family: $font-family;
+  max-width: $max-content-width;
+  min-height: 100vh;
+}

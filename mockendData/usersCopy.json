@@ -1,0 +1,24 @@
+{
+  "users": [
+    {
+      "id": "p1",
+      "name": "Tomek"
+    },
+    {
+      "id": "p2",
+      "name": "Dominika"
+    },
+    {
+      "id": "p3",
+      "name": "Łukasz"
+    },
+    {
+      "id": "p4",
+      "name": "Karmelek"
+    },
+    {
+      "id": "p5",
+      "name": "Miś"
+    }
+  ]
+}

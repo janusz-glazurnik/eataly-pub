@@ -1,0 +1,10 @@
+@use '/src/styles/_variables' as *;
+
+.users-list {
+  .title-avatar {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+}

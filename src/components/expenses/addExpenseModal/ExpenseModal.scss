@@ -1,0 +1,25 @@
+@use '/src/styles/_variables' as *;
+
+.add-expense-modal {
+  background-color: hsla(0, 0%, 13%, 0.5);
+
+  > .add-expense-modal-content {
+    position: relative;
+  }
+
+  .close-button {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    cursor: pointer;
+  }
+}
+
+.add-expense-button {
+  position: sticky !important; // todo tg change that with styled MUI
+  top: 0;
+  margin: 10px 0;
+  bottom: 20px;
+  width: 100%;
+  max-width: $max-content-width;
+}

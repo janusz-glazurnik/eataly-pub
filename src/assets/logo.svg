@@ -1,0 +1,25 @@
+<svg
+    width="200"
+    height="60"
+    viewBox="0 0 200 60"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+>
+    <!-- Tło -->
+    <rect width="200" height="60" rx="10" fill="white"/>
+
+    <!-- Flaga Włoch -->
+    <rect x="20" y="10" width="40" height="40" fill="#008C45"/> <!-- Zielony -->
+    <rect x="60" y="10" width="40" height="40" fill="#FFFFFF"/> <!-- Biały -->
+    <rect x="100" y="10" width="40" height="40" fill="#CD212A"/> <!-- Czerwony -->
+
+    <!-- Symbol Euro w środku -->
+    <text x="75" y="38" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#1D3557">
+        €
+    </text>
+
+    <!-- Tekst EATALY -->
+    <text x="120" y="38" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#1D3557">
+        EATALY
+    </text>
+</svg>
