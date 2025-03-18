@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
+import { useMemo } from 'react';
 
 type Address = {
   street: string;
@@ -27,6 +28,7 @@ export interface User {
     language: string;
     notifications: Notification;
   };
+  groups: Array<string>;
 }
 
 export interface UsersResponse {
@@ -53,4 +55,15 @@ export const useGetUsers = () => {
   const { data, error, isLoading } = useUsers();
 
   return { data, error, isLoading };
+};
+
+export const useGetUsersGroups = () => {
+  const { data } = useUsers();
+
+  const usersWithGroups = data?.users.filter((user) => user.groups);
+  return (
+    usersWithGroups && [
+      ...new Set(usersWithGroups.flatMap((user) => user.groups)),
+    ]
+  );
 };

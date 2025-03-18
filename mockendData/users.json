@@ -22,7 +22,8 @@
           "email": true,
           "sms": false
         }
-      }
+      },
+      "groups": ["Italy", "Home"]
     },
     {
       "id": "p2",
@@ -46,12 +47,88 @@
           "email": true,
           "sms": true
         }
-      }
+      },
+      "groups": ["Italy", "Home"]
     },
     {
       "id": "p3",
       "name": "Łukasz Kowalski",
       "email": "lukasz@gmail.com",
+      "phone": "+48 502 654 321",
+      "address": {
+        "street": "ul. Szeroka 7",
+        "city": "Kraków",
+        "postalCode": "31-001",
+        "country": "Polska"
+      },
+      "dateOfBirth": "1992-07-08",
+      "gender": "male",
+      "registrationDate": "2024-02-25T14:20:00Z",
+      "lastLogin": "2025-03-10T08:50:00Z",
+      "status": "active",
+      "preferences": {
+        "language": "en",
+        "notifications": {
+          "email": false,
+          "sms": false
+        }
+      },
+      "groups": ["Italy"]
+    },
+    {
+      "id": "p4",
+      "name": "Karmelek Kowalski",
+      "email": "karmelek@gmail.com",
+      "phone": null,
+      "address": {
+        "street": null,
+        "city": null,
+        "postalCode": null,
+        "country": null
+      },
+      "dateOfBirth": "2020-01-01",
+      "gender": "male",
+      "registrationDate": "2024-03-05T09:30:00Z",
+      "lastLogin": null,
+      "status": "active",
+      "preferences": {
+        "language": "pl",
+        "notifications": {
+          "email": false,
+          "sms": false
+        }
+      },
+      "groups": ["Italy"]
+    },
+    {
+      "id": "p5",
+      "name": "Miś Kowalski",
+      "email": "mis@gmail.com",
+      "phone": null,
+      "address": {
+        "street": null,
+        "city": null,
+        "postalCode": null,
+        "country": null
+      },
+      "dateOfBirth": "2020-01-01",
+      "gender": "male",
+      "registrationDate": "2024-03-05T09:30:00Z",
+      "lastLogin": null,
+      "status": "inactive",
+      "preferences": {
+        "language": "pl",
+        "notifications": {
+          "email": false,
+          "sms": false
+        }
+      },
+      "groups": ["Italy"]
+    },
+    {
+      "id": "p6",
+      "name": "Adam Kowalski",
+      "email": "adam@gmail.com",
       "phone": "+48 502 654 321",
       "address": {
         "street": "ul. Szeroka 7",
@@ -70,31 +147,8 @@
           "email": false,
           "sms": false
         }
-      }
-    },
-    {
-      "id": "p4",
-      "name": "Karmelek Kowalski",
-      "email": "karmelek@gmail.com",
-      "phone": null,
-      "address": {
-        "street": null,
-        "city": null,
-        "postalCode": null,
-        "country": null
       },
-      "dateOfBirth": "2020-01-01",
-      "gender": "unknown",
-      "registrationDate": "2024-03-05T09:30:00Z",
-      "lastLogin": null,
-      "status": "inactive",
-      "preferences": {
-        "language": "pl",
-        "notifications": {
-          "email": false,
-          "sms": false
-        }
-      }
+      "groups": ["Italy"]
     }
   ]
 }
