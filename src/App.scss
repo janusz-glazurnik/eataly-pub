@@ -10,7 +10,14 @@ body {
   width: 100%;
   border-radius: 8px;
   margin: 20px auto 1000px;
-  font-family: $font-family;
-  max-width: $max-content-width;
   min-height: 100vh;
+  gap: 20px;
+  max-width: $max-content-width;
+  font-family: $font-family;
+
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+  }
 }

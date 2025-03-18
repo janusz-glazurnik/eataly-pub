@@ -1,15 +1,22 @@
 import React from 'react';
-import ExpenseCard from './ExpenseCard';
 import { ExpenseType } from '../../hooks/expenses/useExpenses';
 import { getSummaryExpense } from '../../utils/expensesListUtils';
+import ExpenseCard from './ExpenseCard';
+import { UserType } from '../../hooks/expenses/useUsers';
 
-const ExpensesList = ({ expenses }: { expenses: ExpenseType[] }) => {
+const ExpensesList = ({
+  expenses,
+  users,
+}: {
+  expenses: ExpenseType[];
+  users: UserType[];
+}) => {
   return (
     <div>
       <div className="pb-4">{getSummaryExpense(expenses)} EUR</div>
 
       {expenses.map((expense) => (
-        <ExpenseCard key={expense.id} expense={expense} />
+        <ExpenseCard key={expense.id} expense={expense} users={users} />
       ))}
     </div>
   );

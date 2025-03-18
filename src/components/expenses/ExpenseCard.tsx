@@ -1,7 +1,28 @@
 import React from 'react';
 import { ExpenseType } from '../../hooks/expenses/useExpenses';
+import { UserType } from '../../hooks/expenses/useUsers';
 
-const ExpenseCard = ({ expense }: { expense: ExpenseType }) => {
+const ExpenseCard = ({
+  expense,
+  users,
+}: {
+  expense: ExpenseType;
+  users: UserType[];
+}) => {
+  const payerId = expense.payer;
+  const payerData = users.find(({ id }) => id === payerId);
+
+  const getParticipantsName = (expense: ExpenseType) => {
+    const participants = expense.participants;
+    if (participants && participants.length) {
+      const participantsArray = participants.map(
+        (participant) => users.find((user) => user.id === participant)?.name
+      );
+
+      return participantsArray.join(', ');
+    }
+  };
+
   return (
     <div className="bg-white rounded-lg shadow-md p-6 mb-4 hover:shadow-lg transition-shadow duration-300">
       <div className="flex justify-between items-center mb-4">
@@ -13,10 +34,10 @@ const ExpenseCard = ({ expense }: { expense: ExpenseType }) => {
         </span>
       </div>
       <h4 className="text-xl font-bold text-gray-800">
-        payer: {expense.payer}
+        Payer: {payerData?.name}
       </h4>
       <h3 className="text-xl font-bold text-gray-800">
-        participants: {expense.participants}
+        Participants: {getParticipantsName(expense)}
       </h3>
       <div className="text-gray-600 text-sm mb-2">
         <p>ID: {expense.id}</p>

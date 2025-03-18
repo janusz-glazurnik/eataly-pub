@@ -4,15 +4,17 @@ import Loader from '../../components/loader/loader';
 import Empty from '../../components/empty';
 import Error from '../../components/error';
 import { useGetExpenses } from '../../hooks/expenses/useExpenses';
+import { useGetUsers } from '../../hooks/expenses/useUsers';
 
 const ExpensesContainer = () => {
   const { expenses, isLoading, error } = useGetExpenses();
+  const { users } = useGetUsers();
 
   if (isLoading) {
     return <Loader />;
   }
 
-  if (!expenses) {
+  if (!expenses || !users) {
     return <Empty />;
   }
 
@@ -20,7 +22,7 @@ const ExpensesContainer = () => {
     return <Error errorMessage={error.message} />;
   }
 
-  return <ExpensesList expenses={expenses} />;
+  return <ExpensesList expenses={expenses} users={users} />;
 };
 
 export default ExpensesContainer;

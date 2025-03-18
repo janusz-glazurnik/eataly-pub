@@ -17,9 +17,10 @@
 
 .add-expense-button {
   position: sticky !important; // todo tg change that with styled MUI
-  top: 0;
+  top: 72px; // header height
   margin: 10px 0;
   bottom: 20px;
   width: 100%;
+  z-index: 2;
   max-width: $max-content-width;
 }
