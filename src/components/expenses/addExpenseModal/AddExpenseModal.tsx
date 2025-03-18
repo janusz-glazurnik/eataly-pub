@@ -21,6 +21,7 @@ const ExpenseModal = ({
   const { mutate, isPending, isError, error, isSuccess } = useAddExpense();
   const { data } = useUsers();
 
+  // TODO TG think about moving it outside
   if (!data) {
     return <div>loading</div>;
   }
@@ -61,12 +62,15 @@ const ExpenseModal = ({
     );
   };
 
-  const usersSelect = data?.users.map((user) => {
-    return {
-      value: user.id,
-      label: user.name,
-    };
-  });
+  // TODO TG can be moved to utils or prepare Query that check user status
+  const usersSelect = data?.users
+    .filter((user) => user.status === 'active')
+    .map((user) => {
+      return {
+        value: user.id,
+        label: user.name,
+      };
+    });
 
   return (
     <div className="add-expense-modal fixed inset-0 flex justify-center items-center z-50">
