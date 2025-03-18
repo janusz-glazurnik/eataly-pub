@@ -106,8 +106,6 @@ const UsersList = () => {
                 getExpensesPerParticipant(user.id)}{' '}
               EUR
             </Typography>
-
-            <br />
           </CardContent>
           {/*<CardActions>*/}
           {/*  <Button size="small">Learn More</Button>*/}

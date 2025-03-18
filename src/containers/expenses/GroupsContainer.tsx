@@ -3,6 +3,7 @@ import Loader from '../../components/loader/loader';
 import Empty from '../../components/empty';
 import Error from '../../components/error';
 import { useGetUsers } from '../../hooks/expenses/useUsers';
+import GroupsList from '../../components/expenses/groupsList/GroupsList';
 
 const GroupsContainer = () => {
   const { data, isLoading, error } = useGetUsers();
@@ -19,7 +20,7 @@ const GroupsContainer = () => {
     return <Error errorMessage={error.message} />;
   }
 
-  return <div>groups placeholder</div>;
+  return <GroupsList users={data} />;
 };
 
 export default GroupsContainer;

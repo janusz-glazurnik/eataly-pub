@@ -12,7 +12,7 @@ type Notification = {
   sms: boolean;
 };
 
-interface User {
+export interface User {
   id: string;
   name: string;
   email?: string;
@@ -29,11 +29,11 @@ interface User {
   };
 }
 
-interface ResponseData {
+export interface UsersResponse {
   users: User[];
 }
 
-const fetchUsers = async (): Promise<ResponseData> => {
+const fetchUsers = async (): Promise<UsersResponse> => {
   const response = await fetch('http://localhost:8080/api/users');
   if (!response.ok) {
     throw new Error('Error! Can not fetch users');
