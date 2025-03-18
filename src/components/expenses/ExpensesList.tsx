@@ -3,6 +3,7 @@ import { ExpenseType } from '../../hooks/expenses/useExpenses';
 import { getSummaryExpense } from '../../utils/expensesListUtils';
 import ExpenseCard from './ExpenseCard';
 import { UserType } from '../../hooks/expenses/useUsers';
+import { Typography } from '@mui/material';
 
 const ExpensesList = ({
   expenses,
@@ -12,13 +13,15 @@ const ExpensesList = ({
   users: UserType[];
 }) => {
   return (
-    <div>
-      <div className="pb-4">{getSummaryExpense(expenses)} EUR</div>
+    <>
+      <Typography variant="h3" component="h3">
+        Total money spent: {getSummaryExpense(expenses)} EUR
+      </Typography>
 
       {expenses.map((expense) => (
         <ExpenseCard key={expense.id} expense={expense} users={users} />
       ))}
-    </div>
+    </>
   );
 };
 

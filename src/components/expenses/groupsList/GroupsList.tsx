@@ -18,7 +18,7 @@ const GroupsList = ({ users }: { users: UserType[] }) => {
             sx={{ color: 'text.secondary', fontSize: 14 }}
           >
             <a href={`mailto:${user.email}`}>{user.email}</a> ||{' '}
-            <a href={`tel:${user.phone}}`}>{user.phone}</a>
+            <a href={`tel:${user.phone}`}>{user.phone}</a>
           </Typography>
           <Typography className="title-avatar" variant="h5" component="div">
             <Avatar
