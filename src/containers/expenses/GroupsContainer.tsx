@@ -2,10 +2,10 @@ import React from 'react';
 import Loader from '../../components/loader/loader';
 import Empty from '../../components/empty';
 import Error from '../../components/error';
-import { useGetExpenses } from '../../hooks/expenses/useExpenses';
+import { useGetUsers } from '../../hooks/expenses/useUsers';
 
 const GroupsContainer = () => {
-  const { data, isLoading, error } = useGetExpenses();
+  const { data, isLoading, error } = useGetUsers();
 
   if (isLoading) {
     return <Loader />;

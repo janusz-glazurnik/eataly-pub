@@ -1,8 +1,8 @@
 import React from 'react';
 import ExpenseCard from './expenseCard';
+import { ExpenseResponse } from '../../hooks/expenses/useExpenses';
 
-// TODO TG prepare types/interfaces!
-const ExpensesList = ({ expenses }) => {
+const ExpensesList = ({ expenses }: { expenses: ExpenseResponse }) => {
   // TODO TG move it to utils
   const getSummaryExpense = () => {
     const expensesList = expenses.expenses;

@@ -7,7 +7,7 @@ import { deepOrange } from '@mui/material/colors';
 import './UsersList.scss';
 import { getInitials } from '../../../utils/utils';
 
-const UsersList: React.FC = () => {
+const UsersList = () => {
   const {
     data: users,
     isLoading: usersIsLoading,
@@ -21,19 +21,18 @@ const UsersList: React.FC = () => {
   }
 
   const getAllExpensesPerUser = (id: string) => {
-    const allExpenses = expenses.expenses.filter(
+    const allExpenses = expenses?.expenses.filter(
       (expense) => expense.payer === id
     );
-    const allExpensesSummary = allExpenses.reduce(
-      (sum, expense) => sum + expense.amount,
-      0
-    );
 
-    return allExpensesSummary;
+    return (
+      allExpenses &&
+      allExpenses.reduce((sum, expense) => sum + expense.amount, 0)
+    );
   };
 
   const getExpensesPerParticipant = (id: string) => {
-    return expenses.expenses.reduce((sumAmount, expense) => {
+    return expenses?.expenses.reduce((sumAmount, expense) => {
       if (expense.evenSplit) {
         const participantsLength = expense.participants.length;
         const expenseCostPerParticipant = expense.amount / participantsLength;
@@ -41,21 +40,24 @@ const UsersList: React.FC = () => {
         if (expense.participants?.includes(id)) {
           sumAmount += expenseCostPerParticipant;
         }
-      } else if (expense.proportions) {
-        const proportion = expense.proportions[id];
-
-        sumAmount += expense.amount * proportion;
       }
+
+      // TODO TG prepare logic for proportions
+      // else if (expense.proportions) {
+      //   const proportion = expense.proportions[id];
+      //
+      //   sumAmount += expense.amount * proportion;
+      // }
 
       return sumAmount;
     }, 0);
   };
 
-  const netBalances = computeNetBalances(expenses.expenses);
+  const netBalances = computeNetBalances(expenses?.expenses);
   const transactions = settleBalances(netBalances);
 
   const getUserBasedOnId = (id: string) => {
-    return users.users.find((user) => user.id === id);
+    return users?.users.find((user) => user.id === id);
   };
 
   const calculateBalances = (userId: string) => {

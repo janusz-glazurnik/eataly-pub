@@ -1,11 +1,32 @@
 import { useQuery } from '@tanstack/react-query';
 
+type Address = {
+  street: string;
+  city: string;
+  postalCode: string;
+  country: string;
+};
+
+type Notification = {
+  email: boolean;
+  sms: boolean;
+};
+
 interface User {
   id: string;
   name: string;
   email?: string;
   phone?: string;
-  address?: string;
+  address?: Address;
+  dateOfBirth?: string;
+  gender?: string;
+  registrationDate?: string;
+  lastLogin?: string;
+  status?: string;
+  preferences: {
+    language: string;
+    notifications: Notification;
+  };
 }
 
 interface ResponseData {
