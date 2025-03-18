@@ -2,25 +2,29 @@ import React from 'react';
 import Loader from '../../components/loader/loader';
 import Empty from '../../components/empty';
 import Error from '../../components/error';
-import { useGetExpenses } from '../../hooks/expenses/useExpenses';
 import UsersList from '../../components/expenses/usersList/UsersList';
+import { useGetUsers } from '../../hooks/expenses/useUsers';
 
 const UsersContainer = () => {
-  const { data, isLoading, error } = useGetExpenses();
+  const {
+    data: usersData,
+    isLoading: usersIsLoading,
+    error: usersError,
+  } = useGetUsers();
 
-  if (isLoading) {
+  if (usersIsLoading) {
     return <Loader />;
   }
 
-  if (!data) {
+  if (!usersData) {
     return <Empty />;
   }
 
-  if (error) {
-    return <Error errorMessage={error.message} />;
+  if (usersError) {
+    return <Error errorMessage={usersError.message} />;
   }
 
-  return <UsersList />;
+  return <UsersList users={usersData} />;
 };
 
 export default UsersContainer;

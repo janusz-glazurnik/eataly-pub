@@ -1,5 +1,5 @@
 import React from 'react';
-import { useGetUsers } from '../../../hooks/expenses/useUsers';
+import { UsersResponse } from '../../../hooks/expenses/useUsers';
 import { useGetExpenses } from '../../../hooks/expenses/useExpenses';
 import { computeNetBalances, settleBalances } from '../../../utils/balance';
 import { Avatar, Card, CardContent, Typography } from '@mui/material';
@@ -7,18 +7,8 @@ import { deepOrange } from '@mui/material/colors';
 import './UsersList.scss';
 import { getInitials } from '../../../utils/utils';
 
-const UsersList = () => {
-  const {
-    data: users,
-    isLoading: usersIsLoading,
-    error: usersError,
-  } = useGetUsers();
-
+const UsersList = ({ users }: { users: UsersResponse }) => {
   const { data: expenses, isLoading, error } = useGetExpenses();
-
-  if (usersIsLoading) {
-    return <div>Loading...</div>;
-  }
 
   const getAllExpensesPerUser = (id: string) => {
     const allExpenses = expenses?.expenses.filter(
