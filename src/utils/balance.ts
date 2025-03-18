@@ -1,13 +1,4 @@
-interface Expense {
-  id: string;
-  description: string;
-  timestamp: string;
-  currency: string;
-  amount: number;
-  evenSplit: boolean;
-  participants: string[];
-  payer: string;
-}
+import { ExpenseType } from '../hooks/expenses/useExpenses';
 
 interface Transaction {
   from: string;
@@ -22,7 +13,7 @@ interface Transaction {
  * @param expenses
  */
 export const computeNetBalances = (
-  expenses: Expense[]
+  expenses: ExpenseType[]
 ): Record<string, number> => {
   const balances: Record<string, number> = {};
 

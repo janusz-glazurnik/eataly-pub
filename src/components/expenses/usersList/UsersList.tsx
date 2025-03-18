@@ -1,15 +1,19 @@
 import React from 'react';
 import { UsersResponse } from '../../../hooks/expenses/useUsers';
-import { useGetExpenses } from '../../../hooks/expenses/useExpenses';
+import { ExpenseResponse } from '../../../hooks/expenses/useExpenses';
 import { computeNetBalances, settleBalances } from '../../../utils/balance';
 import { Avatar, Card, CardContent, Typography } from '@mui/material';
 import { deepOrange } from '@mui/material/colors';
 import './UsersList.scss';
 import { getInitials } from '../../../utils/utils';
 
-const UsersList = ({ users }: { users: UsersResponse }) => {
-  const { data: expenses, isLoading, error } = useGetExpenses();
-
+const UsersList = ({
+  users,
+  expenses,
+}: {
+  users: UsersResponse;
+  expenses: ExpenseResponse;
+}) => {
   const getAllExpensesPerUser = (id: string) => {
     const allExpenses = expenses?.expenses.filter(
       (expense) => expense.payer === id
