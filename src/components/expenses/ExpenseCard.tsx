@@ -1,6 +1,7 @@
 import React from 'react';
+import { ExpenseType } from '../../hooks/expenses/useExpenses';
 
-const ExpenseCard = ({ expense }) => {
+const ExpenseCard = ({ expense }: { expense: ExpenseType }) => {
   return (
     <div className="bg-white rounded-lg shadow-md p-6 mb-4 hover:shadow-lg transition-shadow duration-300">
       <div className="flex justify-between items-center mb-4">

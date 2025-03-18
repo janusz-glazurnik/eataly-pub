@@ -35,5 +35,5 @@ export const useExpenses = () => {
 export const useGetExpenses = () => {
   const { data, error, isLoading } = useExpenses();
 
-  return { data, error, isLoading };
+  return { expenses: data?.expenses, error, isLoading };
 };

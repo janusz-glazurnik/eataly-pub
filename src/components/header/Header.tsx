@@ -36,6 +36,7 @@ const Header: React.FC = () => {
         </nav>
 
         {/* Mobile Menu Button */}
+        {/* TODO TG mobile need more attention  */}
         <div className="md:hidden">
           <button
             onClick={toggleMenu}

@@ -1,58 +1,26 @@
 import React from 'react';
-import { UsersResponse } from '../../../hooks/expenses/useUsers';
-import { ExpenseResponse } from '../../../hooks/expenses/useExpenses';
+import { UserType } from '../../../hooks/expenses/useUsers';
+import { ExpenseType } from '../../../hooks/expenses/useExpenses';
 import { computeNetBalances, settleBalances } from '../../../utils/balance';
 import { Avatar, Card, CardContent, Typography } from '@mui/material';
 import { deepOrange, lightBlue } from '@mui/material/colors';
 import './UsersList.scss';
 import { getInitials } from '../../../utils/utils';
+import {
+  getAllExpensesPerUser,
+  getExpensesPerParticipant,
+  getUserBasedOnId,
+} from '../../../utils/usersListUtils';
 
 const UsersList = ({
   users,
   expenses,
 }: {
-  users: UsersResponse;
-  expenses: ExpenseResponse;
+  users: UserType[];
+  expenses: ExpenseType[];
 }) => {
-  const getAllExpensesPerUser = (id: string) => {
-    const allExpenses = expenses?.expenses.filter(
-      (expense) => expense.payer === id
-    );
-
-    return (
-      allExpenses &&
-      allExpenses.reduce((sum, expense) => sum + expense.amount, 0)
-    );
-  };
-
-  const getExpensesPerParticipant = (id: string) => {
-    return expenses?.expenses.reduce((sumAmount, expense) => {
-      if (expense.evenSplit) {
-        const participantsLength = expense.participants.length;
-        const expenseCostPerParticipant = expense.amount / participantsLength;
-
-        if (expense.participants?.includes(id)) {
-          sumAmount += expenseCostPerParticipant;
-        }
-      }
-
-      // TODO TG prepare logic for proportions
-      // else if (expense.proportions) {
-      //   const proportion = expense.proportions[id];
-      //
-      //   sumAmount += expense.amount * proportion;
-      // }
-
-      return sumAmount;
-    }, 0);
-  };
-
-  const netBalances = computeNetBalances(expenses?.expenses);
+  const netBalances = computeNetBalances(expenses);
   const transactions = settleBalances(netBalances);
-
-  const getUserBasedOnId = (id: string) => {
-    return users?.users.find((user) => user.id === id);
-  };
 
   const calculateBalances = (userId: string) => {
     const haveAnyUnbalanced = transactions.filter(
@@ -63,21 +31,23 @@ const UsersList = ({
       return null;
     }
 
-    return haveAnyUnbalanced.map((transaction) => (
-      <span>
-        {' <---'} {getUserBasedOnId(transaction.from)?.name}{' '}
+    // TODO TG find better key because index may cause problems
+    return haveAnyUnbalanced.map((transaction, index) => (
+      <span key={index}>
+        {' <---'} {getUserBasedOnId(transaction.from, users)?.name}{' '}
         <b>{transaction.amount} EUR</b>
       </span>
     ));
   };
 
+  // TODO TG maybe filter/map can be a separate component
   return (
     <div className="users-list bg-white p-4 rounded-lg shadow-md">
       <h2 className="text-xl font-bold mb-4 text-gray-800">Participants</h2>
 
       {/* TODO TG maybe prepare util/query for active users */}
-      {users?.users
-        .filter((user) => user.status === 'active')
+      {users
+        ?.filter((user) => user.status === 'active')
         .map((user) => (
           <Card variant="outlined" key={user.id}>
             <CardContent>
@@ -100,13 +70,13 @@ const UsersList = ({
                 {user.name} {calculateBalances(user.id)}
               </Typography>
               <Typography variant="body2">
-                Money spent: {getAllExpensesPerUser(user.id)} EUR
+                Money spent: {getAllExpensesPerUser(user.id, expenses)} EUR
                 <br />
-                Should spent: {getExpensesPerParticipant(user.id)} EUR
+                Should spent: {getExpensesPerParticipant(user.id, expenses)} EUR
                 <br />
                 Saldo:{' '}
-                {getAllExpensesPerUser(user.id) -
-                  getExpensesPerParticipant(user.id)}{' '}
+                {getAllExpensesPerUser(user.id, expenses) -
+                  getExpensesPerParticipant(user.id, expenses)}{' '}
                 EUR
               </Typography>
             </CardContent>

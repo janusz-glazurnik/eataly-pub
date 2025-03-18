@@ -7,19 +7,16 @@ import { useGetUsers } from '../../hooks/expenses/useUsers';
 import { useGetExpenses } from '../../hooks/expenses/useExpenses';
 
 const UsersContainer = () => {
-  const {
-    data: usersData,
-    isLoading: usersIsLoading,
-    error: usersError,
-  } = useGetUsers();
+  const { users, isLoading: usersIsLoading, error: usersError } = useGetUsers();
 
   const {
-    data: expensesData,
+    expenses,
     isLoading: expensesIsLoading,
     error: expensesError,
   } = useGetExpenses();
 
-  if (!usersData || !expensesData) {
+  // TODO TG can be expanded to cover user and expanses empty separately
+  if (!users || !expenses) {
     return <Empty />;
   }
 
@@ -31,7 +28,7 @@ const UsersContainer = () => {
     return <Error errorMessage={usersError.message} />;
   }
 
-  return <UsersList users={usersData} expenses={expensesData} />;
+  return <UsersList users={users} expenses={expenses} />;
 };
 
 export default UsersContainer;

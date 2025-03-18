@@ -5,13 +5,13 @@ import Error from '../../components/error';
 import { useGetExpenses } from '../../hooks/expenses/useExpenses';
 
 const StatsContainer = () => {
-  const { data, isLoading, error } = useGetExpenses();
+  const { expenses, isLoading, error } = useGetExpenses();
 
   if (isLoading) {
     return <Loader />;
   }
 
-  if (!data) {
+  if (!expenses) {
     return <Empty />;
   }
 

@@ -6,13 +6,13 @@ import { useGetUsers } from '../../hooks/expenses/useUsers';
 import GroupsList from '../../components/expenses/groupsList/GroupsList';
 
 const GroupsContainer = () => {
-  const { data, isLoading, error } = useGetUsers();
+  const { users, isLoading, error } = useGetUsers();
 
   if (isLoading) {
     return <Loader />;
   }
 
-  if (!data) {
+  if (!users) {
     return <Empty />;
   }
 
@@ -20,7 +20,7 @@ const GroupsContainer = () => {
     return <Error errorMessage={error.message} />;
   }
 
-  return <GroupsList users={data} />;
+  return <GroupsList users={users} />;
 };
 
 export default GroupsContainer;
