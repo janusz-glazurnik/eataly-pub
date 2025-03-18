@@ -2,23 +2,23 @@
   "users": [
     {
       "id": "p1",
-      "name": "Tomek"
+      "name": "Janusz Glazurnik",
+      "email": "janusz@gmail.com"
     },
     {
       "id": "p2",
-      "name": "Dominika"
+      "name": "Dominika Glazurnik",
+      "email": "dominika@gmail.com"
     },
     {
       "id": "p3",
-      "name": "Łukasz"
+      "name": "Łukasz Kowalski",
+      "email": "lukasz@gmail.com"
     },
     {
       "id": "p4",
-      "name": "Karmelek"
-    },
-    {
-      "id": "p5",
-      "name": "Miś"
+      "name": "Karmelek Kowalski",
+      "email": "karmelek@gmail.com"
     }
   ]
 }

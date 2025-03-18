@@ -5,6 +5,7 @@ import { computeNetBalances, settleBalances } from '../../../utils/balance';
 import { Avatar, Card, CardContent, Typography } from '@mui/material';
 import { deepOrange } from '@mui/material/colors';
 import './UsersList.scss';
+import { getInitials } from '../../../utils/utils';
 
 const UsersList: React.FC = () => {
   const {
@@ -53,8 +54,6 @@ const UsersList: React.FC = () => {
   const netBalances = computeNetBalances(expenses.expenses);
   const transactions = settleBalances(netBalances);
 
-  console.log('|-- UsersList transactions', transactions);
-
   const getUserBasedOnId = (id: string) => {
     return users.users.find((user) => user.id === id);
   };
@@ -76,14 +75,12 @@ const UsersList: React.FC = () => {
     ));
   };
 
-  console.log('|-- UsersList shouldGet', calculateBalances('p4'));
-
   return (
     <div className="users-list bg-white p-4 rounded-lg shadow-md">
       <h2 className="text-xl font-bold mb-4 text-gray-800">Participants</h2>
 
-      {users.users.map((user) => (
-        <Card variant="outlined">
+      {users?.users.map((user) => (
+        <Card variant="outlined" key={user.id}>
           <CardContent>
             <Typography
               gutterBottom
@@ -93,8 +90,7 @@ const UsersList: React.FC = () => {
             </Typography>
             <Typography className="title-avatar" variant="h5" component="div">
               <Avatar sx={{ bgcolor: deepOrange[500] }}>
-                {user.name.charAt(0)}
-                {user.name.charAt(user.name.length - 1).toUpperCase()}
+                {getInitials(user.name)}
               </Avatar>{' '}
               {user.name} {calculateBalances(user.id)}
             </Typography>

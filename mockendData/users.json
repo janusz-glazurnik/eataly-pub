@@ -2,19 +2,99 @@
   "users": [
     {
       "id": "p1",
-      "name": "Tomek"
+      "name": "Janusz Glazurnik",
+      "email": "janusz@gmail.com",
+      "phone": "+48 600 123 456",
+      "address": {
+        "street": "ul. Kafelkowa 12",
+        "city": "Warszawa",
+        "postalCode": "00-001",
+        "country": "Polska"
+      },
+      "dateOfBirth": "1980-05-15",
+      "gender": "male",
+      "registrationDate": "2024-03-01T12:00:00Z",
+      "lastLogin": "2025-03-16T18:30:00Z",
+      "status": "active",
+      "preferences": {
+        "language": "pl",
+        "notifications": {
+          "email": true,
+          "sms": false
+        }
+      }
     },
     {
       "id": "p2",
-      "name": "Dominika"
+      "name": "Dominika Glazurnik",
+      "email": "dominika@gmail.com",
+      "phone": "+48 601 987 654",
+      "address": {
+        "street": "ul. Kafelkowa 12",
+        "city": "Warszawa",
+        "postalCode": "00-001",
+        "country": "Polska"
+      },
+      "dateOfBirth": "1985-09-22",
+      "gender": "female",
+      "registrationDate": "2024-03-02T10:15:00Z",
+      "lastLogin": "2025-03-15T17:45:00Z",
+      "status": "active",
+      "preferences": {
+        "language": "pl",
+        "notifications": {
+          "email": true,
+          "sms": true
+        }
+      }
     },
     {
       "id": "p3",
-      "name": "Łukasz"
+      "name": "Łukasz Kowalski",
+      "email": "lukasz@gmail.com",
+      "phone": "+48 502 654 321",
+      "address": {
+        "street": "ul. Szeroka 7",
+        "city": "Kraków",
+        "postalCode": "31-001",
+        "country": "Polska"
+      },
+      "dateOfBirth": "1992-07-08",
+      "gender": "male",
+      "registrationDate": "2024-02-25T14:20:00Z",
+      "lastLogin": "2025-03-10T08:50:00Z",
+      "status": "suspended",
+      "preferences": {
+        "language": "en",
+        "notifications": {
+          "email": false,
+          "sms": false
+        }
+      }
     },
     {
       "id": "p4",
-      "name": "Karmelek"
+      "name": "Karmelek Kowalski",
+      "email": "karmelek@gmail.com",
+      "phone": null,
+      "address": {
+        "street": null,
+        "city": null,
+        "postalCode": null,
+        "country": null
+      },
+      "dateOfBirth": "2020-01-01",
+      "gender": "unknown",
+      "registrationDate": "2024-03-05T09:30:00Z",
+      "lastLogin": null,
+      "status": "inactive",
+      "preferences": {
+        "language": "pl",
+        "notifications": {
+          "email": false,
+          "sms": false
+        }
+      }
     }
   ]
 }
