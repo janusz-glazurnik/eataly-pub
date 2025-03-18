@@ -6,13 +6,13 @@ import Error from '../../components/error';
 import { useGetExpenses } from '../../hooks/expenses/useExpenses';
 
 const ExpensesContainer = () => {
-  const { data, isLoading, error } = useGetExpenses();
+  const { expenses, isLoading, error } = useGetExpenses();
 
   if (isLoading) {
     return <Loader />;
   }
 
-  if (!data) {
+  if (!expenses) {
     return <Empty />;
   }
 
@@ -20,7 +20,7 @@ const ExpensesContainer = () => {
     return <Error errorMessage={error.message} />;
   }
 
-  return <ExpensesList expenses={data} />;
+  return <ExpensesList expenses={expenses} />;
 };
 
 export default ExpensesContainer;

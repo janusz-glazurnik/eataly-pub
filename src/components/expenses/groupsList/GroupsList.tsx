@@ -1,19 +1,15 @@
 import React from 'react';
-import {
-  useGetUsersGroups,
-  User,
-  UsersResponse,
-} from '../../../hooks/expenses/useUsers';
+import { useGetUsersGroups, UserType } from '../../../hooks/expenses/useUsers';
 import { Avatar, Card, CardContent, Typography } from '@mui/material';
 import { deepOrange, lightBlue } from '@mui/material/colors';
 import './GroupsList.scss';
 import { getInitials } from '../../../utils/utils';
 
-const GroupsList = ({ users }: { users: UsersResponse }) => {
+const GroupsList = ({ users }: { users: UserType[] }) => {
   const uniqueGroups = useGetUsersGroups();
 
   // TODO TG probalby it will be better to have a separate component for it
-  const getCard = (usersPerGroup: User[]) => {
+  const getCard = (usersPerGroup: UserType[]) => {
     return usersPerGroup.map((user) => (
       <Card variant="outlined" key={user.id}>
         <CardContent>
@@ -48,12 +44,12 @@ const GroupsList = ({ users }: { users: UsersResponse }) => {
 
       {uniqueGroups &&
         uniqueGroups.map((group) => {
-          const usersPerGroup = users.users.filter((user) =>
+          const usersPerGroup = users.filter((user) =>
             user.groups.includes(group)
           );
 
           return (
-            <div>
+            <div key={group}>
               <h2>{group}</h2>
               {getCard(usersPerGroup)}
             </div>

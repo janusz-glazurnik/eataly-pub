@@ -1,5 +1,4 @@
 import { useQuery } from '@tanstack/react-query';
-import { useMemo } from 'react';
 
 type Address = {
   street: string;
@@ -13,7 +12,7 @@ type Notification = {
   sms: boolean;
 };
 
-export interface User {
+export type UserType = {
   id: string;
   name: string;
   email?: string;
@@ -29,10 +28,10 @@ export interface User {
     notifications: Notification;
   };
   groups: Array<string>;
-}
+};
 
 export interface UsersResponse {
-  users: User[];
+  users: UserType[];
 }
 
 const fetchUsers = async (): Promise<UsersResponse> => {
@@ -54,7 +53,7 @@ export const useUsers = () => {
 export const useGetUsers = () => {
   const { data, error, isLoading } = useUsers();
 
-  return { data, error, isLoading };
+  return { users: data?.users, error, isLoading };
 };
 
 export const useGetUsersGroups = () => {
