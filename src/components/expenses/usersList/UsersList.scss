@@ -1,6 +1,14 @@
 @use '/src/styles/_variables' as *;
 
 .users-list {
+  display: flex;
+  flex-direction: column;
+  row-gap: 15px;
+
+  .debt {
+    border-color: red;
+  }
+
   .title-avatar {
     display: flex;
     align-content: center;

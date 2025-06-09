@@ -9,6 +9,7 @@ import { getInitials } from '../../../utils/utils';
 import {
   getAllExpensesPerUser,
   getExpensesPerParticipant,
+  getSaldoPerUser,
   getUserBasedOnId,
 } from '../../../utils/usersListUtils';
 
@@ -49,7 +50,13 @@ const UsersList = ({
       {users
         ?.filter((user) => user.status === 'active')
         .map((user) => (
-          <Card variant="outlined" key={user.id}>
+          <Card
+            className={
+              getSaldoPerUser(user.id, expenses) < 0 ? 'debt' : 'no-debt'
+            }
+            variant="outlined"
+            key={user.id}
+          >
             <CardContent>
               <Typography
                 gutterBottom
@@ -74,10 +81,7 @@ const UsersList = ({
                 <br />
                 Should spent: {getExpensesPerParticipant(user.id, expenses)} EUR
                 <br />
-                Saldo:{' '}
-                {getAllExpensesPerUser(user.id, expenses) -
-                  getExpensesPerParticipant(user.id, expenses)}{' '}
-                EUR
+                Saldo: {getSaldoPerUser(user.id, expenses)} EUR
               </Typography>
             </CardContent>
             {/*<CardActions>*/}

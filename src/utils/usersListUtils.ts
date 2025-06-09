@@ -32,6 +32,13 @@ export const getExpensesPerParticipant = (id: string, data: ExpenseType[]) => {
   }, 0);
 };
 
+export const getSaldoPerUser = (id: string, expenses: ExpenseType[]) => {
+  return (
+    getAllExpensesPerUser(id, expenses) -
+    getExpensesPerParticipant(id, expenses)
+  );
+};
+
 export const getUserBasedOnId = (id: string, users: UserType[]) => {
   return users?.find((user) => user.id === id);
 };
