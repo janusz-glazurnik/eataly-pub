@@ -6,6 +6,7 @@ import StatsContainer from './containers/expenses/StatsContainer';
 import GroupsContainer from './containers/expenses/GroupsContainer';
 import SettingsContainer from './containers/expenses/SettingsContainer';
 
+// TODO TG check if can use react query with routing (loader)
 const router = createBrowserRouter([
   {
     path: '/',

@@ -39,6 +39,6 @@ export const getSaldoPerUser = (id: string, expenses: ExpenseType[]) => {
   );
 };
 
-export const getUserBasedOnId = (id: string, users: UserType[]) => {
+export const getUserBasedOnId = (id: string, users?: UserType[]) => {
   return users?.find((user) => user.id === id);
 };
