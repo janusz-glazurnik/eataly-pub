@@ -11,7 +11,7 @@ import {
   Typography,
   Box,
   Divider,
-  Grid,
+  Grid2,
   Chip,
 } from '@mui/material';
 import { deepOrange, lightBlue } from '@mui/material/colors';
@@ -179,8 +179,8 @@ const SingleUser = ({
       }}
     >
       <CardContent sx={{ pb: 1 }}>
-        <Grid container spacing={2} alignItems="center">
-          <Grid item>
+        <Grid2 container spacing={2} alignItems="center">
+          <Grid2>
             <Avatar
               sx={{
                 width: 56,
@@ -193,16 +193,16 @@ const SingleUser = ({
             >
               {getInitials(user.name)}
             </Avatar>
-          </Grid>
-          <Grid item xs>
+          </Grid2>
+          <Grid2 size="grow">
             <Typography variant="h6" fontWeight="700">
               {user.name}
             </Typography>
             <Typography variant="caption" color="text.secondary">
               ID: {user.id}
             </Typography>
-          </Grid>
-          <Grid item textAlign="right">
+          </Grid2>
+          <Grid2 sx={{ textAlign: 'right' }}>
             <Box display="flex" flexDirection="column" alignItems="flex-end">
               <Typography
                 variant="h6"
@@ -220,13 +220,13 @@ const SingleUser = ({
                 sx={{ mt: 0.5, fontWeight: 600, fontSize: '0.65rem' }}
               />
             </Box>
-          </Grid>
-        </Grid>
+          </Grid2>
+        </Grid2>
 
         <Divider sx={{ my: 2, opacity: 0.6 }} />
 
-        <Grid container spacing={1}>
-          <Grid item xs={6}>
+        <Grid2 container spacing={1}>
+          <Grid2 size={6}>
             <Box display="flex" alignItems="center">
               <WalletIcon
                 sx={{ fontSize: 16, color: 'text.secondary', mr: 0.5 }}
@@ -238,16 +238,16 @@ const SingleUser = ({
             <Typography variant="body2" fontWeight="600">
               {getAllExpensesPerUser(user.id, expenses).toFixed(2)} EUR
             </Typography>
-          </Grid>
-          <Grid item xs={6} textAlign="right">
+          </Grid2>
+          <Grid2 size={6} sx={{ textAlign: 'right' }}>
             <Typography variant="caption" color="text.secondary">
               Share:
             </Typography>
             <Typography variant="body2" fontWeight="600">
               {getExpensesPerParticipant(user.id, expenses).toFixed(2)} EUR
             </Typography>
-          </Grid>
-        </Grid>
+          </Grid2>
+        </Grid2>
       </CardContent>
 
       <CardActions
