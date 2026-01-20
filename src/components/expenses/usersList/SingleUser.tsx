@@ -9,9 +9,12 @@ import {
   CardContent,
   Collapse,
   Typography,
+  Box,
+  Divider,
+  Grid,
+  Chip,
 } from '@mui/material';
 import { deepOrange, lightBlue } from '@mui/material/colors';
-import './UsersList.scss';
 import { getInitials } from '../../../utils/utils';
 import {
   getAllExpensesPerUser,
@@ -22,6 +25,11 @@ import {
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { styled } from '@mui/material/styles';
 import IconButton, { IconButtonProps } from '@mui/material/IconButton';
+import {
+  AccountBalanceWallet as WalletIcon,
+  TrendingUp as ProfitIcon,
+  TrendingDown as DebtIcon,
+} from '@mui/icons-material';
 
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean;
@@ -59,102 +67,218 @@ const SingleUser = ({
   expenses: ExpenseType[];
 }) => {
   const { users } = useGetUsers();
-  const netBalances = computeNetBalances(expenses);
-  const transactions = settleBalances(netBalances);
+  const netBalances = React.useMemo(
+    () => computeNetBalances(expenses),
+    [expenses]
+  );
+  const transactions = React.useMemo(
+    () => settleBalances(netBalances),
+    [netBalances]
+  );
   const [expanded, setExpanded] = React.useState(false);
+
+  const saldo = getSaldoPerUser(user.id, expenses);
+  const isDebt = saldo < 0;
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
   const calculateBalances = (userId: string) => {
-    const haveAnyUnbalanced = transactions.filter(
+    const oweToMe = transactions.filter(
       (transaction) => transaction.to === userId
     );
 
-    const haveAnyDept = transactions.filter(
+    const iOweTo = transactions.filter(
       (transaction) => transaction.from === userId
     );
 
-    console.log('|-- SingleUser haveAnyUnbalanced', userId, haveAnyUnbalanced);
-    console.log('|-- SingleUser haveAnyDept', userId, haveAnyDept);
-
-    if (haveAnyDept.length > 0) {
+    if (iOweTo.length > 0) {
       return (
-        <>
-          <Typography sx={{ marginBottom: 2 }}>
-            Who should you give the money to:
+        <Box>
+          <Typography
+            variant="subtitle2"
+            color="error"
+            gutterBottom
+            fontWeight="bold"
+          >
+            People you need to pay back:
           </Typography>
-          {haveAnyDept.map((transaction, index) => (
-            <Typography key={index} sx={{ marginBottom: 2 }}>
-              {getUserBasedOnId(transaction.to, users)?.name}{' '}
-              <b>{transaction.amount} EUR</b>
-            </Typography>
+          {iOweTo.map((transaction, index) => (
+            <Box
+              key={index}
+              display="flex"
+              justifyContent="space-between"
+              sx={{ mb: 1, py: 0.5 }}
+            >
+              <Typography variant="body2">
+                {getUserBasedOnId(transaction.to, users)?.name}
+              </Typography>
+              <Typography variant="body2" fontWeight="bold" color="error">
+                {transaction.amount.toFixed(2)} EUR
+              </Typography>
+            </Box>
           ))}
-        </>
+        </Box>
       );
     }
 
-    // TODO TG find better key because index may cause problems
-    return (
-      <>
-        <Typography sx={{ marginBottom: 2 }}>Who owes you money:</Typography>
-        {haveAnyUnbalanced.map((transaction, index) => (
-          <Typography key={index} sx={{ marginBottom: 2 }}>
-            {getUserBasedOnId(transaction.from, users)?.name}{' '}
-            <b>{transaction.amount} EUR</b>
+    if (oweToMe.length > 0) {
+      return (
+        <Box>
+          <Typography
+            variant="subtitle2"
+            color="success.main"
+            gutterBottom
+            fontWeight="bold"
+          >
+            People who owe you:
           </Typography>
-        ))}
-      </>
+          {oweToMe.map((transaction, index) => (
+            <Box
+              key={index}
+              display="flex"
+              justifyContent="space-between"
+              sx={{ mb: 1, py: 0.5 }}
+            >
+              <Typography variant="body2">
+                {getUserBasedOnId(transaction.from, users)?.name}
+              </Typography>
+              <Typography
+                variant="body2"
+                fontWeight="bold"
+                color="success.main"
+              >
+                {transaction.amount.toFixed(2)} EUR
+              </Typography>
+            </Box>
+          ))}
+        </Box>
+      );
+    }
+
+    return (
+      <Typography variant="body2" color="text.secondary">
+        All settled up!
+      </Typography>
     );
   };
 
-  // TODO TG maybe filter/map can be a separate component
   return (
     <Card
-      className={getSaldoPerUser(user.id, expenses) < 0 ? 'debt' : 'no-debt'}
-      variant="outlined"
-      key={user.id}
+      sx={{
+        mb: 2,
+        borderRadius: 3,
+        boxShadow: '0 2px 12px rgba(0,0,0,0.05)',
+        transition: 'transform 0.2s',
+        '&:hover': {
+          transform: 'translateY(-2px)',
+          boxShadow: '0 4px 15px rgba(0,0,0,0.1)',
+        },
+        borderLeft: `6px solid ${isDebt ? '#f44336' : '#4caf50'}`,
+      }}
     >
-      <CardContent>
-        <Typography gutterBottom sx={{ color: 'text.secondary', fontSize: 14 }}>
-          UserID: {user.id}
-        </Typography>
-        <Typography className="title-avatar" variant="h5" component="div">
-          <Avatar
-            sx={
-              user.gender === 'male'
-                ? { bgcolor: deepOrange[500] }
-                : { bgcolor: lightBlue[500] }
-            }
-          >
-            {getInitials(user.name)}
-          </Avatar>{' '}
-          {user.name}
-        </Typography>
-        <Typography variant="body2">
-          Money spent: {getAllExpensesPerUser(user.id, expenses)} EUR
-          <br />
-          Should spent: {getExpensesPerParticipant(user.id, expenses)} EUR
-          <br />
-          Saldo: {getSaldoPerUser(user.id, expenses)} EUR
-        </Typography>
+      <CardContent sx={{ pb: 1 }}>
+        <Grid container spacing={2} alignItems="center">
+          <Grid item>
+            <Avatar
+              sx={{
+                width: 56,
+                height: 56,
+                fontSize: '1.25rem',
+                bgcolor:
+                  user.gender === 'male' ? deepOrange[500] : lightBlue[500],
+                boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
+              }}
+            >
+              {getInitials(user.name)}
+            </Avatar>
+          </Grid>
+          <Grid item xs>
+            <Typography variant="h6" fontWeight="700">
+              {user.name}
+            </Typography>
+            <Typography variant="caption" color="text.secondary">
+              ID: {user.id}
+            </Typography>
+          </Grid>
+          <Grid item textAlign="right">
+            <Box display="flex" flexDirection="column" alignItems="flex-end">
+              <Typography
+                variant="h6"
+                fontWeight="800"
+                color={isDebt ? 'error' : 'success.main'}
+              >
+                {saldo.toFixed(2)} EUR
+              </Typography>
+              <Chip
+                icon={isDebt ? <DebtIcon /> : <ProfitIcon />}
+                label={isDebt ? 'Owes' : 'Is owed'}
+                size="small"
+                color={isDebt ? 'error' : 'success'}
+                variant="outlined"
+                sx={{ mt: 0.5, fontWeight: 600, fontSize: '0.65rem' }}
+              />
+            </Box>
+          </Grid>
+        </Grid>
 
-        <CardActions disableSpacing>
-          <ExpandMore
-            expand={expanded}
-            onClick={handleExpandClick}
-            aria-expanded={expanded}
-            aria-label="show more"
-          >
-            <ExpandMoreIcon />
-          </ExpandMore>
-        </CardActions>
+        <Divider sx={{ my: 2, opacity: 0.6 }} />
 
-        <Collapse in={expanded} timeout="auto" unmountOnExit>
-          <CardContent>{calculateBalances(user.id)}</CardContent>
-        </Collapse>
+        <Grid container spacing={1}>
+          <Grid item xs={6}>
+            <Box display="flex" alignItems="center">
+              <WalletIcon
+                sx={{ fontSize: 16, color: 'text.secondary', mr: 0.5 }}
+              />
+              <Typography variant="caption" color="text.secondary">
+                Spent:
+              </Typography>
+            </Box>
+            <Typography variant="body2" fontWeight="600">
+              {getAllExpensesPerUser(user.id, expenses).toFixed(2)} EUR
+            </Typography>
+          </Grid>
+          <Grid item xs={6} textAlign="right">
+            <Typography variant="caption" color="text.secondary">
+              Share:
+            </Typography>
+            <Typography variant="body2" fontWeight="600">
+              {getExpensesPerParticipant(user.id, expenses).toFixed(2)} EUR
+            </Typography>
+          </Grid>
+        </Grid>
       </CardContent>
+
+      <CardActions
+        disableSpacing
+        sx={{
+          pt: 0,
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          px: 2,
+        }}
+      >
+        <Typography variant="caption" color="text.secondary" fontWeight="600">
+          {isDebt ? 'Next payments' : 'Incoming payments'}
+        </Typography>
+        <ExpandMore
+          expand={expanded}
+          onClick={handleExpandClick}
+          aria-expanded={expanded}
+          aria-label="show more"
+        >
+          <ExpandMoreIcon />
+        </ExpandMore>
+      </CardActions>
+
+      <Collapse in={expanded} timeout="auto" unmountOnExit>
+        <Divider />
+        <CardContent sx={{ bgcolor: 'rgba(0,0,0,0.01)' }}>
+          {calculateBalances(user.id)}
+        </CardContent>
+      </Collapse>
     </Card>
   );
 };

@@ -24,9 +24,12 @@ const App = () => {
   const [snackbarMessage, setSnackbarMessage] = useState('');
 
   useEffect(() => {
-    setTimeout(() => {
-      setSnackbarOpen(false);
-    }, 3000);
+    if (isSnackbarOpen) {
+      const timer = setTimeout(() => {
+        setSnackbarOpen(false);
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
   }, [isSnackbarOpen]);
 
   return (
@@ -34,7 +37,7 @@ const App = () => {
       <div className="app-container">
         <Header />
 
-        <AddExpenseButton setModalOpen={() => setModalOpen(true)} />
+        <AddExpenseButton setModalOpen={setModalOpen} />
 
         <Outlet />
 

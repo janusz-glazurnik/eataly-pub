@@ -2,24 +2,28 @@ import React from 'react';
 import Loader from '../../components/loader/loader';
 import Empty from '../../components/empty';
 import Error from '../../components/error';
-import { useGetExpenses } from '../../hooks/expenses/useExpenses';
+import Settings from '../../components/settings/Settings';
+import { useGetUsers } from '../../hooks/expenses/useUsers';
 
 const SettingsContainer = () => {
-  const { expenses, isLoading, error } = useGetExpenses();
+  const { users, isLoading, error } = useGetUsers();
 
   if (isLoading) {
     return <Loader />;
-  }
-
-  if (!expenses) {
-    return <Empty />;
   }
 
   if (error) {
     return <Error errorMessage={error.message} />;
   }
 
-  return <div>settings placeholder</div>;
+  if (!users || users.length === 0) {
+    return <Empty />;
+  }
+
+  // Simulating logged in user as the first one from the list
+  const loggedInUser = users[0];
+
+  return <Settings user={loggedInUser} />;
 };
 
 export default SettingsContainer;

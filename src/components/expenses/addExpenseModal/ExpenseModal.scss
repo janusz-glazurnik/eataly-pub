@@ -14,13 +14,3 @@
     cursor: pointer;
   }
 }
-
-.add-expense-button {
-  position: sticky !important; // todo tg change that with styled MUI
-  top: 72px; // header height
-  margin: 10px 0;
-  bottom: 20px;
-  width: 100%;
-  z-index: 2; // TODO TG this is causing issues in modal (covers select options)
-  max-width: $max-content-width;
-}

@@ -51,9 +51,9 @@ export const useUsers = () => {
 };
 
 export const useGetUsers = () => {
-  const { data, error, isLoading } = useUsers();
+  const { data, error, isLoading, isFetching } = useUsers();
 
-  return { users: data?.users, error, isLoading };
+  return { users: data?.users, error, isLoading, isFetching };
 };
 
 export const useGetUsersGroups = () => {

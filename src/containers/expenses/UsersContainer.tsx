@@ -15,17 +15,16 @@ const UsersContainer = () => {
     error: expensesError,
   } = useGetExpenses();
 
-  // TODO TG can be expanded to cover user and expanses empty separately
-  if (!users || !expenses) {
-    return <Empty />;
-  }
-
   if (usersIsLoading || expensesIsLoading) {
     return <Loader />;
   }
 
   if (usersError) {
     return <Error errorMessage={usersError.message} />;
+  }
+
+  if (!users || !expenses) {
+    return <Empty />;
   }
 
   return <UsersList users={users} expenses={expenses} />;

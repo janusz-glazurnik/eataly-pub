@@ -33,7 +33,7 @@ export const useExpenses = () => {
 };
 
 export const useGetExpenses = () => {
-  const { data, error, isLoading } = useExpenses();
+  const { data, error, isLoading, isFetching } = useExpenses();
 
-  return { expenses: data?.expenses, error, isLoading };
+  return { expenses: data?.expenses, error, isLoading, isFetching };
 };

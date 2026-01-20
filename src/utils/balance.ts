@@ -21,19 +21,31 @@ export const computeNetBalances = (
     const { amount, participants, payer, evenSplit } = expense;
     if (evenSplit) {
       const share = amount / participants.length;
+
+      // Ensure payer is in balances
+      if (!balances[payer]) {
+        balances[payer] = 0;
+      }
+
       participants.forEach((participant) => {
         // Init balance
         if (!balances[participant]) {
           balances[participant] = 0;
         }
+
+        // Payer gets the money back
         if (participant === payer) {
-          // Payer gets diff between full amount and participation
           balances[participant] += amount - share;
         } else {
-          // Others
+          // Others are charged their share
           balances[participant] -= share;
         }
       });
+
+      // Special case: Payer is NOT a participant
+      if (!participants.includes(payer)) {
+        balances[payer] += amount;
+      }
     }
     // Placeholder for payment percentage
   });

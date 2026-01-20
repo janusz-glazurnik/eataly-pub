@@ -14,19 +14,13 @@ export const getExpensesPerParticipant = (id: string, data: ExpenseType[]) => {
   return data?.reduce((sumAmount, expense) => {
     if (expense.evenSplit) {
       const participantsLength = expense.participants.length;
+      if (participantsLength === 0) return sumAmount;
       const expenseCostPerParticipant = expense.amount / participantsLength;
 
       if (expense.participants?.includes(id)) {
         sumAmount += expenseCostPerParticipant;
       }
     }
-
-    // TODO TG prepare logic for proportions
-    // else if (expense.proportions) {
-    //   const proportion = expense.proportions[id];
-    //
-    //   sumAmount += expense.amount * proportion;
-    // }
 
     return sumAmount;
   }, 0);

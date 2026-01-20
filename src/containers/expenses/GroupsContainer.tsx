@@ -6,18 +6,18 @@ import { useGetUsers } from '../../hooks/expenses/useUsers';
 import GroupsList from '../../components/expenses/groupsList/GroupsList';
 
 const GroupsContainer = () => {
-  const { users, isLoading, error } = useGetUsers();
+  const { users, isLoading, error, isFetching } = useGetUsers();
 
-  if (isLoading) {
-    return <Loader />;
+  // if (isLoading || isFetching) {
+  //   return <Loader />;
+  // }
+
+  if (error) {
+    return <Error errorMessage={error.message} />;
   }
 
   if (!users) {
     return <Empty />;
-  }
-
-  if (error) {
-    return <Error errorMessage={error.message} />;
   }
 
   return <GroupsList users={users} />;
