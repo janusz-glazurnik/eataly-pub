@@ -47,7 +47,37 @@ const Settings = ({ user }: { user: UserType }) => {
   const handleSave = () => {
     // In a real app, we would call a mutation here
     console.log('Saving settings:', formData);
-    alert('Settings saved successfully (mock)');
+
+    // Mock save to localStorage
+    const storedUsers = localStorage.getItem('eataly_users');
+    let users = storedUsers ? JSON.parse(storedUsers) : [user]; // Fallback to current user if nothing in storage
+
+    const userIndex = users.findIndex((u: any) => u.id === user.id);
+    const updatedUser = {
+      ...user,
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone,
+      preferences: {
+        ...user.preferences,
+        language: formData.language,
+        notifications: {
+          email: formData.emailNotifications,
+          sms: formData.smsNotifications,
+        },
+      },
+    };
+
+    if (userIndex > -1) {
+      users[userIndex] = updatedUser;
+    } else {
+      users.push(updatedUser);
+    }
+
+    localStorage.setItem('eataly_users', JSON.stringify(users));
+
+    alert('Settings saved successfully (localStorage mock)');
+    window.location.reload(); // Quick way to refresh UI with new mock data
   };
 
   return (

@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
+import { mockExpenses } from '../../mockData';
 
 export type ExpenseType = {
   id: string;
@@ -17,12 +18,29 @@ export interface ExpenseResponse {
 }
 
 const fetchExpenses = async (): Promise<ExpenseResponse> => {
-  const response = await fetch('http://localhost:8080/api/expenses');
-  if (!response.ok) {
-    throw new Error('Error! Can not fetch expenses');
+  // Try to fetch from API, fallback to mock if it fails or doesn't exist
+  try {
+    const response = await fetch('http://localhost:8080/api/expenses');
+    if (response.ok) {
+      return response.json();
+    }
+  } catch (e) {
+    console.warn('Backend not available, using mock expenses');
   }
 
-  return response.json();
+  // Fallback to local storage or mock data
+  const storedExpenses = localStorage.getItem('eataly_expenses');
+  if (storedExpenses) {
+    const parsed = JSON.parse(storedExpenses);
+    // Convert timestamp strings back to Date objects
+    const expenses = parsed.map((e: any) => ({
+      ...e,
+      timestamp: new Date(e.timestamp),
+    }));
+    return { expenses };
+  }
+
+  return { expenses: mockExpenses };
 };
 
 export const useExpenses = () => {

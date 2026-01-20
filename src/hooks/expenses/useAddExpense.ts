@@ -1,4 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { v4 as uuidv4 } from 'uuid';
+import { mockExpenses } from '../../mockData';
 
 interface Expense {
   amount: number;
@@ -10,21 +12,44 @@ interface Expense {
 }
 
 interface ExpenseResponse extends Expense {
+  id: string;
   timestamp: Date;
 }
 
 const addExpense = async (expense: Expense): Promise<ExpenseResponse> => {
-  const response = await fetch('http://localhost:8080/api/expenses', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(expense),
-  });
+  // Try to post to API, fallback to mock if it fails
+  try {
+    const response = await fetch('http://localhost:8080/api/expenses', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(expense),
+    });
 
-  if (!response.ok) {
-    throw new Error('Error! Can not add expense');
+    if (response.ok) {
+      return response.json();
+    }
+  } catch (e) {
+    console.warn('Backend not available, saving expense locally');
   }
 
-  return response.json();
+  // Fallback: save to localStorage
+  const newExpense: ExpenseResponse = {
+    ...expense,
+    id: uuidv4(),
+    timestamp: new Date(),
+  };
+
+  const storedExpenses = localStorage.getItem('eataly_expenses');
+  let expenses = storedExpenses
+    ? JSON.parse(storedExpenses)
+    : [...mockExpenses];
+  expenses.push(newExpense);
+  localStorage.setItem('eataly_expenses', JSON.stringify(expenses));
+
+  // Simulate network delay
+  await new Promise((resolve) => setTimeout(resolve, 500));
+
+  return newExpense;
 };
 
 export const useAddExpense = () => {
