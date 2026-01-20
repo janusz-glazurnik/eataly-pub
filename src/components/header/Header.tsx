@@ -101,8 +101,8 @@ const Header: React.FC = () => {
               sx={{
                 display: { xs: 'none', md: 'flex' },
                 mr: 1,
-                height: 32,
-                width: 32,
+                height: 40,
+                width: 40,
               }}
             />
             <Typography

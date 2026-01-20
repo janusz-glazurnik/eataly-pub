@@ -1,25 +1,34 @@
-<svg
-    width="200"
-    height="60"
-    viewBox="0 0 200 60"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
->
-    <!-- Tło -->
-    <rect width="200" height="60" rx="10" fill="white"/>
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Pizza Circle Base -->
+  <circle cx="100" cy="100" r="80" fill="#F4D03F" stroke="#D35400" stroke-width="8"/>
+  
+  <!-- Pizza Slices with Italian Colors -->
+  <!-- Green Slice -->
+  <path d="M100 100 L100 20 A80 80 0 0 1 180 100 Z" fill="#2ECC71"/>
+  <!-- White Slice -->
+  <path d="M100 100 L180 100 A80 80 0 0 1 100 180 Z" fill="#FDFEFE"/>
+  <!-- Red Slice -->
+  <path d="M100 100 L100 180 A80 80 0 0 1 20 100 Z" fill="#E74C3C"/>
+  <!-- Yellow Slice (Remaining) -->
+  <path d="M100 100 L20 100 A80 80 0 0 1 100 20 Z" fill="#F1C40F"/>
 
-    <!-- Flaga Włoch -->
-    <rect x="20" y="10" width="40" height="40" fill="#008C45"/> <!-- Zielony -->
-    <rect x="60" y="10" width="40" height="40" fill="#FFFFFF"/> <!-- Biały -->
-    <rect x="100" y="10" width="40" height="40" fill="#CD212A"/> <!-- Czerwony -->
+  <!-- Cut Lines -->
+  <line x1="20" y1="100" x2="180" y2="100" stroke="#D35400" stroke-width="2"/>
+  <line x1="100" y1="20" x2="100" y2="180" stroke="#D35400" stroke-width="2"/>
 
-    <!-- Symbol Euro w środku -->
-    <text x="75" y="38" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#1D3557">
-        €
-    </text>
+  <!-- Cutlery Icons -->
+  <!-- Fork -->
+  <path d="M140 40 L140 70 M135 40 L135 55 M145 40 L145 55" stroke="#34495E" stroke-width="3" stroke-linecap="round"/>
+  <line x1="140" y1="70" x2="140" y2="90" stroke="#34495E" stroke-width="3" stroke-linecap="round"/>
+  
+  <!-- Knife -->
+  <path d="M60 40 L60 70 Q60 75 55 75 L55 40 Z" fill="#BDC3C7" stroke="#34495E" stroke-width="1"/>
+  <line x1="57" y1="75" x2="57" y2="90" stroke="#34495E" stroke-width="3" stroke-linecap="round"/>
 
-    <!-- Tekst EATALY -->
-    <text x="120" y="38" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#1D3557">
-        EATALY
-    </text>
+  <!-- Euro Symbol in Center -->
+  <circle cx="100" cy="100" r="25" fill="#764BA2" stroke="white" stroke-width="2"/>
+  <text x="100" y="110" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="white" text-anchor="middle">€</text>
+  
+  <!-- Text -->
+  <text x="100" y="195" font-family="Arial, sans-serif" font-size="24" font-weight="900" fill="#1D3557" text-anchor="middle" letter-spacing="2">EATALY</text>
 </svg>
